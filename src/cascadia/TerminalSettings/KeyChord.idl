@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-namespace Microsoft.Terminal.Settings
+namespace Microsoft.Terminal.Settings.Model
 {
     [flags]
     enum KeyModifiers

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Natvis Include="$(SolutionDir)tools\ConsoleTypes.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AppSettings.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="AzureCloudShellGenerator.cpp">
+      <Filter>profileGeneration</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultProfileUtils.cpp">
+      <Filter>profileGeneration</Filter>
+    </ClCompile>
+    <ClCompile Include="PowershellCoreProfileGenerator.cpp">
+      <Filter>profileGeneration</Filter>
+    </ClCompile>
+    <ClCompile Include="WslDistroGenerator.cpp">
+      <Filter>profileGeneration</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalSettings.cpp" />
+    <ClCompile Include="ColorScheme.cpp" />
+    <ClCompile Include="Profile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AppSettings.h" />
+    <ClInclude Include="GlobalSettings.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="AzureCloudShellGenerator.h">
+      <Filter>profileGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultProfileUtils.h">
+      <Filter>profileGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="IDynamicProfileGenerator.h">
+      <Filter>profileGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="PowershellCoreProfileGenerator.h">
+      <Filter>profileGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="TelnetGenerator.h">
+      <Filter>profileGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="WslDistroGenerator.h">
+      <Filter>profileGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="LegacyProfileGeneratorNamespaces.h">
+      <Filter>profileGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorScheme.h" />
+    <ClInclude Include="JsonUtils.h">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="Profile.h" />
+    <ClInclude Include="TerminalSettingsSerializationHelpers.h">
+      <Filter>json</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="AppSettings.idl" />
+    <Midl Include="ColorScheme.idl" />
+    <Midl Include="GlobalSettings.idl" />
+    <Midl Include="Profile.idl" />
+    <Midl Include="KeyChord.idl" />
+    <Midl Include="IKeyBindings.idl" />
+    <Midl Include="SettingsTypes.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="TerminalSettings.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="profileGeneration">
+      <UniqueIdentifier>{0dbe0094-2c99-46e5-9abd-559625f7cbe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="json">
+      <UniqueIdentifier>{0857f225-8cfd-4d0d-ba00-9b3c654a450f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -3,7 +3,7 @@
 
 import "KeyChord.idl";
 
-namespace Microsoft.Terminal.Settings
+namespace Microsoft.Terminal.Settings.Model
 {
     // [default_interface]
     interface IKeyBindings

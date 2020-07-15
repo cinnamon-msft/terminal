@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CA5CAD1A-d7ec-4107-b7c6-79cb77ae2907}</ProjectGuid>
     <ProjectName>TerminalSettings</ProjectName>
-    <RootNamespace>Microsoft.Terminal.Settings</RootNamespace>
+    <RootNamespace>Microsoft.Terminal.Settings.Model</RootNamespace>
     <!-- cppwinrt.build.pre.props depends on these settings: -->
     <!-- build a dll, not exe (Application) -->
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -17,42 +17,116 @@
      -->
     <NoOutputRedirection>true</NoOutputRedirection>
   </PropertyGroup>
-
   <Import Project="..\..\..\common.openconsole.props" Condition="'$(OpenConsoleDir)'==''" />
   <Import Project="$(OpenConsoleDir)src\cppwinrt.build.pre.props" />
-
+  <!-- ========================= Headers ======================== -->
   <ItemGroup>
+    <ClInclude Include="AppSettings.h">
+      <DependentUpon>AppSettings.idl</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="AzureCloudShellGenerator.h" />
+    <ClInclude Include="ColorScheme.h">
+      <DependentUpon>ColorScheme.idl</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="DefaultProfileUtils.h" />
+    <ClInclude Include="GlobalSettings.h">
+      <DependentUpon>GlobalSettings.idl</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="IDynamicProfileGenerator.h" />
+    <ClInclude Include="JsonUtils.h" />
+    <ClInclude Include="LegacyProfileGeneratorNamespaces.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="KeyChord.h">
       <DependentUpon>KeyChord.idl</DependentUpon>
     </ClInclude>
-    <ClInclude Include="TerminalSettings.h">
-      <DependentUpon>TerminalSettings.idl</DependentUpon>
+    <ClInclude Include="PowershellCoreProfileGenerator.h" />
+    <ClInclude Include="Profile.h">
+      <DependentUpon>Profile.idl</DependentUpon>
     </ClInclude>
+    <ClInclude Include="TelnetGenerator.h" />
+    <ClInclude Include="TerminalSettingsSerializationHelpers.h" />
+    <ClInclude Include="WslDistroGenerator.h" />
   </ItemGroup>
+  <!-- ========================= Cpp Files ======================== -->
   <ItemGroup>
+    <ClCompile Include="AppSettings.cpp">
+      <DependentUpon>AppSettings.idl</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="AzureCloudShellGenerator.cpp" />
+    <ClCompile Include="ColorScheme.cpp">
+      <DependentUpon>ColorScheme.idl</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="DefaultProfileUtils.cpp" />
+    <ClCompile Include="GlobalSettings.cpp">
+      <DependentUpon>GlobalSettings.idl</DependentUpon>
+    </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="KeyChord.cpp">
       <DependentUpon>KeyChord.idl</DependentUpon>
     </ClCompile>
-    <ClCompile Include="TerminalSettings.cpp">
-      <DependentUpon>TerminalSettings.idl</DependentUpon>
+    <ClCompile Include="PowershellCoreProfileGenerator.cpp" />
+    <ClCompile Include="Profile.cpp">
+      <DependentUpon>Profile.idl</DependentUpon>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="WslDistroGenerator.cpp" />
+    <!-- You _NEED_ to include this file and the jsoncpp IncludePath (below) if
+    you want to use jsoncpp -->
+    <ClCompile Include="$(OpenConsoleDir)\dep\jsoncpp\jsoncpp.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
+  <!-- ========================= idl Files ======================== -->
   <ItemGroup>
-    <Midl Include="TerminalSettings.idl" />
-    <Midl Include="ICoreSettings.idl" />
-    <Midl Include="IControlSettings.idl" />
+    <Midl Include="AppSettings.idl" />
+    <Midl Include="ColorScheme.idl" />
+    <Midl Include="GlobalSettings.idl" />
+    <Midl Include="Profile.idl" />
+    <Midl Include="SettingsTypes.idl" />
     <Midl Include="KeyChord.idl" />
     <Midl Include="IKeyBindings.idl" />
   </ItemGroup>
+  <!-- ========================= Misc Files ======================== -->
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="TerminalSettings.def" />
   </ItemGroup>
-
+  <!-- ========================= Project References ======================== -->
+  <ItemGroup>
+    <!--
+      the packaging project won't recurse through our dependencies, you have to
+      make sure that if you add a cppwinrt dependency to any of these projects,
+      you also update all the consumers
+    -->
+    <ProjectReference Include="$(OpenConsoleDir)src\types\lib\types.vcxproj" />
+    <ProjectReference Include="$(OpenConsoleDir)src\cascadia\WinRTUtils\WinRTUtils.vcxproj">
+      <Project>{CA5CAD1A-039A-4929-BA2A-8BEB2E4106FE}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    
+    <!-- Manually add references to each of our dependent winmds. Mark them as
+    private=false and CopyLocalSatelliteAssemblies=false, so that we don't
+    propagate them upwards (which can make referencing this project result in
+    duplicate type definitions)-->
+    <Reference Include="Microsoft.Terminal.TerminalConnection">
+      <HintPath>$(_BinRoot)TerminalConnection\Microsoft.Terminal.TerminalConnection.winmd</HintPath>
+      <IsWinMDFile>true</IsWinMDFile>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+    </Reference>
+  </ItemGroup>
+  <!-- ====================== Compiler & Linker Flags ===================== -->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..;$(OpenConsoleDir)\dep\jsoncpp\json;%(AdditionalIncludeDirectories);</AdditionalIncludeDirectories>
+      <!-- Manually disable unreachable code warning, because jconcpp has a ton of that. -->
+      <DisableSpecificWarnings>4702;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  
+  <!-- ========================= Globals ======================== -->
   <Import Project="$(OpenConsoleDir)src\cppwinrt.build.post.props" />
 </Project>

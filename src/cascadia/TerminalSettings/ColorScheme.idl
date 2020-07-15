@@ -1,0 +1,22 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
+namespace Microsoft.Terminal.Settings.Model
+{
+    [default_interface]
+    runtimeclass ColorScheme
+    {
+        ColorScheme();
+        ColorScheme(String name, UInt32 defaultFg, UInt32 defaultBg, UInt32 cursorColor);
+
+        String Name;
+
+        UInt32 Foreground;
+        UInt32 Background;
+        UInt32 SelectionBackground;
+        UInt32 CursorColor;
+
+        // TODO CARLOS: Array: Used an IVector for now. It really should be an array though. But idk how.
+        Windows.Foundation.Collections.IVector<UInt32> Table;
+    }
+}
