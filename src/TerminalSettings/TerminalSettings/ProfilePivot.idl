@@ -1,0 +1,8 @@
+namespace SettingsControl
+{
+    [default_interface]
+    runtimeclass ProfilePivot : Windows.UI.Xaml.Controls.Page
+    {
+        ProfilePivot();
+    }
+}

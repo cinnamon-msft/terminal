@@ -9,10 +9,12 @@
     <Page Include="Profiles.xaml" />
     <Page Include="ColorSchemes.xaml" />
     <Page Include="Keybindings.xaml" />
+    <Page Include="ProfilePivot.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
     <Midl Include="MainPage.idl" />
+    <Midl Include="ProfilePivot.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -31,6 +33,7 @@
     <ClCompile Include="ObjectModel\Profile.cpp">
       <Filter>ObjectModel</Filter>
     </ClCompile>
+    <ClCompile Include="ProfilePivot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -46,6 +49,7 @@
     <ClInclude Include="ObjectModel\Profile.h">
       <Filter>ObjectModel</Filter>
     </ClInclude>
+    <ClInclude Include="ProfilePivot.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

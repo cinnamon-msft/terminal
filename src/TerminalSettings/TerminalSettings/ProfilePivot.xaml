@@ -1,0 +1,27 @@
+﻿<Page
+    x:Class="SettingsControl.ProfilePivot"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SettingsControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Pivot>
+        <PivotItem Header="General">
+            <TextBlock>Welcome to the General Page!</TextBlock>
+        </PivotItem>
+
+        
+        <PivotItem Header="Appearance">
+            <TextBlock>Welcome to the Appearance Page!</TextBlock>
+        </PivotItem>
+
+
+        <PivotItem Header="Advanced">
+            <TextBlock>Welcome to the Advanced Page!</TextBlock>
+        </PivotItem>
+    </Pivot>
+    
+</Page>

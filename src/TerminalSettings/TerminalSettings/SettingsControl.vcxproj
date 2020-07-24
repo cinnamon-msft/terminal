@@ -126,6 +126,10 @@
     <ClInclude Include="MainPage.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="ProfilePivot.h">
+      <DependentUpon>ProfilePivot.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Profiles.h">
       <DependentUpon>Profiles.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -145,6 +149,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ProfilePivot.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Profiles.xaml">
@@ -204,6 +211,10 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="ProfilePivot.cpp">
+      <DependentUpon>ProfilePivot.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Profiles.cpp">
       <DependentUpon>Profiles.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -227,6 +238,10 @@
     </Midl>
     <Midl Include="MainPage.idl">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Midl>
+    <Midl Include="ProfilePivot.idl">
+      <DependentUpon>ProfilePivot.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="Profiles.idl">
       <DependentUpon>Profiles.xaml</DependentUpon>
