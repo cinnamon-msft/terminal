@@ -218,7 +218,7 @@
   <!-- ========================= Project References ======================== -->
   <ItemGroup>
     <Reference Include="Microsoft.Terminal.TerminalControl">
-      <HintPath>$(_BinRoot)TerminalControl\Microsoft.Terminal.TerminalControl.winmd</HintPath>
+      <HintPath>..\..\cascadia\TerminalControl\$(Platform)\$(Configuration)\Merged\Microsoft.Terminal.TerminalControl.winmd</HintPath>
       <IsWinMDFile>true</IsWinMDFile>
       <Private>false</Private>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
