@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "../../cascadia/TerminalControl/TermControl.h"
 #include "Profiles.g.h"
 
 namespace winrt::SettingsControl::implementation

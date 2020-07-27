@@ -102,6 +102,29 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <!-- ========================= XAML files ======================== -->
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="ColorSchemes.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Globals.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Keybindings.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Profiles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+  <!-- ========================= Headers ======================== -->
   <ItemGroup>
     <ClInclude Include="ColorSchemes.h">
       <DependentUpon>ColorSchemes.xaml</DependentUpon>
@@ -131,52 +154,8 @@
       <SubType>Code</SubType>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="ColorSchemes.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Globals.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Keybindings.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Profiles.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest">
-      <SubType>Designer</SubType>
-    </AppxManifest>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\AllTerminalColorSchemes (2).png" />
-    <Image Include="Assets\AllTerminalColorSchemes (3).png" />
-    <Image Include="Assets\AllTerminalColorSchemes (4).png" />
-    <Image Include="Assets\AllTerminalColorSchemes (5).png" />
-    <Image Include="Assets\AllTerminalColorSchemes (6).png" />
-    <Image Include="Assets\AllTerminalColorSchemes (7).png" />
-    <Image Include="Assets\AllTerminalProfiles (2).png" />
-    <Image Include="Assets\AllTerminalProfiles (3).png" />
-    <Image Include="Assets\AllTerminalProfiles (4).png" />
-    <Image Include="Assets\AllTerminalProfiles (5).png" />
-    <Image Include="Assets\AllTerminalProfiles (6).png" />
-    <Image Include="Assets\AllTerminalProfiles (7).png" />
-    <Image Include="Assets\LockScreenLogo.scale-200.png" />
-    <Image Include="Assets\SplashScreen.scale-200.png" />
-    <Image Include="Assets\Square150x150Logo.scale-200.png" />
-    <Image Include="Assets\Square44x44Logo.scale-200.png" />
-    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Image Include="Assets\StoreLogo.png" />
-    <Image Include="Assets\Wide310x150Logo.scale-200.png" />
-  </ItemGroup>
+  
+  <!-- ========================= Cpp Files ======================== -->
   <ItemGroup>
     <ClCompile Include="ColorSchemes.cpp">
       <DependentUpon>ColorSchemes.xaml</DependentUpon>
@@ -209,6 +188,8 @@
       <SubType>Code</SubType>
     </ClCompile>
   </ItemGroup>
+
+  <!-- ========================= idl Files ======================== -->
   <ItemGroup>
     <Midl Include="App.idl">
       <DependentUpon>App.xaml</DependentUpon>
@@ -233,6 +214,26 @@
       <SubType>Code</SubType>
     </Midl>
   </ItemGroup>
+
+  <!-- ========================= Project References ======================== -->
+  <ItemGroup>
+    <Reference Include="Microsoft.Terminal.TerminalControl">
+      <HintPath>$(_BinRoot)TerminalControl\Microsoft.Terminal.TerminalControl.winmd</HintPath>
+      <IsWinMDFile>true</IsWinMDFile>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+    </Reference>
+  </ItemGroup>
+ 
+  <!-- ====================== Compiler & Linker Flags ===================== -->
+  <!-- ========================= Globals ======================== -->
+
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="PropertySheet.props" />
