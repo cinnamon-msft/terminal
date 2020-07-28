@@ -145,6 +145,9 @@
     <ClInclude Include="Rendering.h">
       <DependentUpon>Rendering.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="Setting.h">
+      <DependentUpon>Setting.idl</DependentUpon>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -253,6 +256,9 @@
     <ClCompile Include="Rendering.cpp">
       <DependentUpon>Rendering.xaml</DependentUpon>
     </ClCompile>
+    <ClCompile Include="Setting.cpp">
+      <DependentUpon>Setting.idl</DependentUpon>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl">
@@ -297,6 +303,7 @@
       <DependentUpon>Profiles.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="Setting.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

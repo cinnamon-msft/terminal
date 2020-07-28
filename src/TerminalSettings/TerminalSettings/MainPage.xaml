@@ -15,7 +15,8 @@
                     SelectionChanged="SettingsNav_SelectionChanged"
                     ItemInvoked="SettingsNav_ItemInvoked">
         <muxc:NavigationView.AutoSuggestBox>
-            <AutoSuggestBox PlaceholderText="Search" QueryIcon="Find"/>
+            <AutoSuggestBox x:Name="_searchBox" PlaceholderText="Search" TextChanged="_filterTextChanged"
+        QueryIcon="Find"/>
         </muxc:NavigationView.AutoSuggestBox>
         <muxc:NavigationView.MenuItems>
 

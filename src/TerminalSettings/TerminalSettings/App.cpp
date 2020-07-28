@@ -11,6 +11,7 @@
 #include "GlobalAppearance.h"
 #include "ColorSchemes.h"
 #include "Keybindings.h"
+#include "Setting.h"
 
 using namespace winrt;
 using namespace Windows::ApplicationModel;
