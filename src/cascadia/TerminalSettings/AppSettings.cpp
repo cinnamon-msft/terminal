@@ -51,21 +51,26 @@ namespace winrt::Microsoft::Terminal::Settings::Model::implementation
     // Return Value:
     // - a non-ownership pointer to the profile matching the given guid, or nullptr
     //      if there is no match.
+#pragma warning(push)
+#pragma warning(disable : 4172)
     const Profile* AppSettings::FindProfile(GUID profileGuid) const noexcept
     {
-        for (auto profile : _profiles)
+        for (uint32_t i = 0; i < _profiles.Size(); ++i)
+        //for (auto profile : _profiles)
         {
             try
             {
-                if (profile.Guid() != nullptr && IsEqualGUID(profile.Guid().Value(), profileGuid) == 0)
+                const auto* profile = &_profiles.GetAt(i);
+                if (profile->Guid() != nullptr && IsEqualGUID(profile->Guid().Value(), profileGuid) == 0)
                 {
-                    return &profile;
+                    return profile;
                 }
             }
             CATCH_LOG();
         }
         return nullptr;
     }
+#pragma warning(pop)
 
     GlobalSettings AppSettings::Globals()
     {

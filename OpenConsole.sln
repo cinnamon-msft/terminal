@@ -321,6 +321,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wt", "src\cascadia\wt\wt.vcxproj", "{506FD703-BAA7-4F6E-9361-64F550EC8FCA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SettingsControl", "src\cascadia\SettingsControl\SettingsControl.vcxproj", "{35989071-0B5E-45C3-96A8-BB496BFE4E32}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CA5CAD1A-D7EC-4107-B7C6-79CB77AE2907} = {CA5CAD1A-D7EC-4107-B7C6-79CB77AE2907}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

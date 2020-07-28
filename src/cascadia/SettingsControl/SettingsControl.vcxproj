@@ -17,8 +17,17 @@
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
     <WindowsTargetPlatformVersion Condition=" '$(WindowsTargetPlatformVersion)' == '' ">10.0.18362.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformMinVersion>10.0.17134.0</WindowsTargetPlatformMinVersion>
+    <!--
+      DON'T REDIRECT OUR OUTPUT.
+      Setting this will tell cppwinrt.build.post.props to copy our output from
+      the default OutDir up one level, so the wapproj will be able to find it.
+     -->
+    <NoOutputRedirection>true</NoOutputRedirection>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  
+  <Import Project="..\..\..\common.openconsole.props" Condition="'$(OpenConsoleDir)'==''" />
+  <Import Project="$(OpenConsoleDir)src\cppwinrt.build.pre.props" />
+
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|ARM">
       <Configuration>Debug</Configuration>
@@ -73,6 +82,7 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup>
     <ClCompile>
+      <AdditionalIncludeDirectories>$(OpenConsoleDir)\src\inc;$(OpenConsoleDir)\dep;$(OpenConsoleDir)\dep\Console;$(OpenConsoleDir)\dep\Win32K;$(OpenConsoleDir)\dep\gsl\include;%(AdditionalIncludeDirectories);$(OpenConsoleDir)\dep\wil;</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
@@ -85,6 +95,7 @@
       <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
+      <AdditionalDependencies>gdi32.lib;dwmapi.lib;Shcore.lib;UxTheme.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
   </ItemDefinitionGroup>
@@ -102,6 +113,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <!-- ========================= Headers ======================== -->
   <ItemGroup>
     <ClInclude Include="AddProfile.h">
       <DependentUpon>AddProfile.xaml</DependentUpon>
@@ -150,6 +162,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
   </ItemGroup>
+  <!-- ========================= XAML files ======================== -->
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
@@ -188,6 +201,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <!-- ========================= Cpp Files ======================== -->
   <ItemGroup>
     <ClCompile Include="AddProfile.cpp">
       <DependentUpon>AddProfile.xaml</DependentUpon>
@@ -234,6 +248,7 @@
       <DependentUpon>Rendering.xaml</DependentUpon>
     </ClCompile>
   </ItemGroup>
+  <!-- ========================= idl Files ======================== -->
   <ItemGroup>
     <Midl Include="App.idl">
       <DependentUpon>App.xaml</DependentUpon>
@@ -282,12 +297,38 @@
       <SubType>Code</SubType>
     </Midl>
   </ItemGroup>
+  <!-- ========================= Misc Files ======================== -->
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="PropertySheet.props" />
     <Text Include="readme.txt">
       <DeploymentContent>false</DeploymentContent>
     </Text>
+  </ItemGroup>
+  <!-- ========================= Project References ======================== -->
+  <ItemGroup>
+    <!--
+      the packaging project won't recurse through our dependencies, you have to
+      make sure that if you add a cppwinrt dependency to any of these projects,
+      you also update all the consumers
+    -->
+    <ProjectReference Include="$(OpenConsoleDir)src\types\lib\types.vcxproj">
+      <Project>{18D09A24-8240-42D6-8CB6-236EEE820263}</Project>
+    </ProjectReference>
+    <!-- The midl compiler however, _will_ aggregate our winmd dependencies
+    somehow. So make sure to only include top-level dependencies here (don't
+    include Settings and Connection, since Control will include them for us) -->
+    <ProjectReference Include="$(OpenConsoleDir)src\cascadia\TerminalSettings\TerminalSettings.vcxproj" />
+    <!-- Manually add references to each of our dependent winmds. Mark them as
+    private=false and CopyLocalSatelliteAssemblies=false, so that we don't
+    propagate them upwards (which can make referencing this project result in
+    duplicate type definitions)-->
+    <Reference Include="Microsoft.Terminal.Settings.Model">
+      <HintPath>$(_BinRoot)TerminalSettings\Microsoft.Terminal.Settings.Model.winmd</HintPath>
+      <IsWinMDFile>true</IsWinMDFile>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\SplashScreen.scale-100.png" />
@@ -332,4 +373,7 @@
     <Error Condition="!Exists('..\..\..\packages\Microsoft.Toolkit.Win32.UI.XamlApplication.6.1.1\build\native\Microsoft.Toolkit.Win32.UI.XamlApplication.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.Toolkit.Win32.UI.XamlApplication.6.1.1\build\native\Microsoft.Toolkit.Win32.UI.XamlApplication.props'))" />
     <Error Condition="!Exists('..\..\..\packages\Microsoft.Toolkit.Win32.UI.XamlApplication.6.1.1\build\native\Microsoft.Toolkit.Win32.UI.XamlApplication.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.Toolkit.Win32.UI.XamlApplication.6.1.1\build\native\Microsoft.Toolkit.Win32.UI.XamlApplication.targets'))" />
   </Target>
+
+  <!-- ========================= Globals ======================== -->
+  <Import Project="$(OpenConsoleDir)src\cppwinrt.build.post.props" />
 </Project>
