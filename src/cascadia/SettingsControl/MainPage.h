@@ -2,7 +2,6 @@
 
 #include "MainPage.g.h"
 #include "winrt/Microsoft.UI.Xaml.Controls.h"
-#include "ObjectModel/AppSettings.h"
 
 namespace winrt::SettingsControl::implementation
 {
@@ -16,10 +15,11 @@ namespace winrt::SettingsControl::implementation
         void SettingsNav_ItemInvoked(Microsoft::UI::Xaml::Controls::NavigationView const& sender, Microsoft::UI::Xaml::Controls::NavigationViewItemInvokedEventArgs const& args);
 
     private:
+        // TODO HACK
         // XAML should data-bind to the _settingsClone
         // When "save" is pressed, _settingsSource = _settingsClone
-        winrt::TerminalSettings::implementation::AppSettings _settingsSource;
-        winrt::TerminalSettings::implementation::AppSettings _settingsClone;
+        //winrt::TerminalSettings::implementation::AppSettings _settingsSource;
+        //winrt::TerminalSettings::implementation::AppSettings _settingsClone;
     };
 }
 

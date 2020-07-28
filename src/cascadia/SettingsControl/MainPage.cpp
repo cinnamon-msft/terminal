@@ -18,7 +18,6 @@ namespace winrt
 }
 
 using namespace winrt::Windows::UI::Xaml;
-using namespace winrt::TerminalSettings::implementation;
 
 namespace winrt::SettingsControl::implementation
 {
@@ -28,8 +27,8 @@ namespace winrt::SettingsControl::implementation
 
         // TODO: When we actually connect this to Windows Terminal,
         //       this section will clone the active AppSettings
-        _settingsSource = AppSettings();
-        _settingsClone = _settingsSource.Clone();
+        //_settingsSource = AppSettings();
+        //_settingsClone = _settingsSource.Clone();
     }
 
     void MainPage::ClickHandler(IInspectable const&, RoutedEventArgs const&)
