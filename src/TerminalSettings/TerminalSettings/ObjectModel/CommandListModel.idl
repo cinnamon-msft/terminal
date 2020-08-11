@@ -1,0 +1,9 @@
+import "ObjectModel/CommandModel.idl";
+
+namespace ObjectModel
+{
+    runtimeclass CommandListModel
+    {
+        IVector<CommandModel> CommandList { get; };
+    }
+}

@@ -2,15 +2,19 @@
 
 #include "Keybindings.g.h"
 #include <set>
+#include "ObjectModel/CommandListModel.h"
 
 namespace winrt::SettingsControl::implementation
 {
+
     struct Keybindings : KeybindingsT<Keybindings>
     {
         Keybindings();
 
         int32_t MyProperty();
         void MyProperty(int32_t value);
+
+        ObjectModel::CommandListModel CommandListModel();
 
         void ClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
@@ -41,6 +45,8 @@ namespace winrt::SettingsControl::implementation
         winrt::Windows::UI::Xaml::Controls::HyperlinkButton m_addNewButton{};
 
         std::set<winrt::Windows::System::VirtualKey> m_keysInBind;
+
+        ObjectModel::CommandListModel m_commandListModel{ nullptr };
     };
 }
 

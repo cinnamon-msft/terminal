@@ -1,3 +1,5 @@
+import "ObjectModel/CommandListModel.idl";
+
 namespace SettingsControl
 {
     [default_interface]
@@ -5,5 +7,6 @@ namespace SettingsControl
     {
         Keybindings();
         Int32 MyProperty;
+        ObjectModel.CommandListModel CommandListModel { get; };
     }
 }

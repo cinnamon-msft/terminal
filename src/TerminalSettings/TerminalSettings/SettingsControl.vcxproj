@@ -131,6 +131,9 @@
     <ClInclude Include="Launch.h">
       <DependentUpon>Launch.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="ObjectModel\Command.h" />
+    <ClInclude Include="ObjectModel\CommandListModel.h" />
+    <ClInclude Include="ObjectModel\CommandModel.h" />
     <ClInclude Include="SplitPaneOptionPanelControl.h">
       <DependentUpon>SplitPaneOptionPanelControl.xaml</DependentUpon>
     </ClInclude>
@@ -262,6 +265,9 @@
     <ClCompile Include="Launch.cpp">
       <DependentUpon>Launch.xaml</DependentUpon>
     </ClCompile>
+    <ClCompile Include="ObjectModel\Command.cpp" />
+    <ClCompile Include="ObjectModel\CommandListModel.cpp" />
+    <ClCompile Include="ObjectModel\CommandModel.cpp" />
     <ClCompile Include="SplitPaneOptionPanelControl.cpp">
       <DependentUpon>SplitPaneOptionPanelControl.xaml</DependentUpon>
     </ClCompile>
@@ -328,6 +334,9 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="ObjectModel\ColorSchemeModel.idl" />
+    <Midl Include="ObjectModel\Command.idl" />
+    <Midl Include="ObjectModel\CommandListModel.idl" />
+    <Midl Include="ObjectModel\CommandModel.idl" />
     <Midl Include="ObjectModel\GlobalSettings.idl" />
     <Midl Include="ObjectModel\GlobalSettingsModel.idl" />
     <Midl Include="ObjectModel\Profile.idl" />

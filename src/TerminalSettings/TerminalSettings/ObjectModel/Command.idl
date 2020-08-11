@@ -1,0 +1,9 @@
+namespace ObjectModel
+{
+    runtimeclass Command : Windows.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        String CommandString;
+        String Args;
+        String KeybindString;
+    }
+}

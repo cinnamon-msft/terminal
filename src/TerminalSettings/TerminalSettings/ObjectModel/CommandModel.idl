@@ -1,0 +1,9 @@
+import "ObjectModel/Command.idl";
+
+namespace ObjectModel
+{
+    runtimeclass CommandModel
+    {
+        Command Command { get; };
+    }
+}
