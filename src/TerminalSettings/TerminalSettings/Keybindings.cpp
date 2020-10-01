@@ -11,6 +11,9 @@
 #include <winrt/Windows.UI.Xaml.Input.h>
 #include <winrt/Windows.UI.Input.h>
 #include <winrt/Windows.UI.Popups.h>
+#include <winrt/Windows.Foundation.Collections.h>
+
+#include <ObjectModel\CommandModel.h>
 
 using namespace winrt;
 using namespace Windows::Foundation;
@@ -23,6 +26,8 @@ namespace winrt::SettingsControl::implementation
 {
     Keybindings::Keybindings()
     {
+        m_commandListModel = winrt::make<ObjectModel::implementation::CommandListModel>();
+
         InitializeComponent();
 
         m_optionalSettingsPanel = FindName(L"OptionalSettingsPanel").as<Controls::StackPanel>();
@@ -30,8 +35,6 @@ namespace winrt::SettingsControl::implementation
 
         Controls::TextBox tb = FindName(L"KeyBindTextBox").as<Controls::TextBox>();
         tb.KeyDown({ this, &Keybindings::KeyDown });
-
-        // tb.BeforeTextChanging({this, &Keybindings::asdf_BeforeTextChanging})
     }
 
     int32_t Keybindings::MyProperty()
@@ -42,6 +45,11 @@ namespace winrt::SettingsControl::implementation
     void Keybindings::MyProperty(int32_t /* value */)
     {
         throw hresult_not_implemented();
+    }
+
+    ObjectModel::CommandListModel Keybindings::CommandListModel()
+    {
+        return m_commandListModel;
     }
 
     void Keybindings::ClickHandler(IInspectable const&, RoutedEventArgs const&)
@@ -245,15 +253,25 @@ namespace winrt::SettingsControl::implementation
 
     hstring Keybindings::CollectInputData()
     {
+        ObjectModel::CommandModel commandModel = winrt::make<ObjectModel::implementation::CommandModel>();
+        ObjectModel::Command command = commandModel.Command();
+
         hstring fullInfo = L"";
 
         Controls::ComboBox comboBox = FindName(L"CommandComboBox").as<Controls::ComboBox>();
         fullInfo = fullInfo + comboBox.Name() + L":" + GetSelectedItemTag(comboBox) + L"\n";
+        command.CommandString(GetSelectedItemTag(comboBox));
 
         Controls::TextBox textBox = FindName(L"KeyBindTextBox").as<Controls::TextBox>();
         fullInfo = fullInfo + textBox.Name() + L":" + textBox.Text() + L"\n";
+        command.KeybindString(textBox.Text());
 
-        fullInfo = fullInfo + TraversePanel(m_lastOpenedArgsPanel);
+        hstring args = TraversePanel(m_lastOpenedArgsPanel);
+        fullInfo = fullInfo + args;
+        command.Args(args);
+
+        Windows::Foundation::Collections::IVector<ObjectModel::CommandModel> commandList = m_commandListModel.CommandList();
+        commandList.Append(commandModel);
 
         return fullInfo;
     }
